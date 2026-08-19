@@ -1,0 +1,18 @@
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Logs
+*.log
+logs/
+
+#ssh
+**/setup-ssh.ps1
+**/setup-ssh.sh

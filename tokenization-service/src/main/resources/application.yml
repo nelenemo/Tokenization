@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: tokenization-service
+
+server:
+  port: 8080
+
+app:
+  tokenization:
+    ff1:
+      # TEMPORARY development-only FF1 configuration.
+      #
+      # WARNING: These values are for local development only. They will be
+      # moved to HashiCorp Vault (Vault Transit) in a later phase. Do NOT
+      # deploy to any non-development environment with these values.
+      #
+      # AES key for FF1 (AES-256, 32 bytes), Base64-encoded.
+      key-base64: "JAeCWt65h+Dk4rOgn3MLUXleTNhGH/nB0GN0eBFAHko="
+      # FF1 tweak, hex-encoded (variable length; optional and may be empty).
+      tweak-hex: "f83524b7eb52a221"
+

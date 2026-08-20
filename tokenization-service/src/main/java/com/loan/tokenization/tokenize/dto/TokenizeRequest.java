@@ -1,4 +1,4 @@
-package com.loan.tokenization.dto;
+package com.loan.tokenization.tokenize.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
  *
  * <p>For {@code MOBILE} values, {@code value} must contain exactly 10 digits
  * and nothing else. Country-specific validation is intentionally not applied
- * in Phase 1.</p>
+ * yet.</p>
  *
  * <p>{@code @NotBlank} rejects {@code null}, empty and whitespace-only values,
  * so a dedicated {@code @NotNull} is not needed.</p>

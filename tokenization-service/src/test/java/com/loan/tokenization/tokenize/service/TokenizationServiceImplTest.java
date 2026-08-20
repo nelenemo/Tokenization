@@ -1,10 +1,12 @@
-package com.loan.tokenization.service;
+package com.loan.tokenization.tokenize.service;
 
-import com.loan.tokenization.dto.DataType;
-import com.loan.tokenization.dto.TokenizeRequest;
-import com.loan.tokenization.dto.TokenizeResponse;
-import com.loan.tokenization.exception.DataValidationException;
-import com.loan.tokenization.exception.UnsupportedDataTypeException;
+import com.loan.tokenization.core.constant.DataType;
+import com.loan.tokenization.core.exception.DataValidationException;
+import com.loan.tokenization.core.exception.UnsupportedDataTypeException;
+import com.loan.tokenization.core.service.TokenizationEngine;
+import com.loan.tokenization.tokenize.dto.TokenizeRequest;
+import com.loan.tokenization.tokenize.dto.TokenizeResponse;
+import com.loan.tokenization.tokenize.service.impl.TokenizationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +18,9 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit tests for {@link TokenizationService}.
+ * Unit tests for {@link TokenizationServiceImpl}.
  */
-class TokenizationServiceTest {
+class TokenizationServiceImplTest {
 
     private TokenizationService service;
     private TokenizationEngine engine;
@@ -26,7 +28,7 @@ class TokenizationServiceTest {
     @BeforeEach
     void setUp() {
         engine = mock(TokenizationEngine.class);
-        service = new TokenizationService(engine);
+        service = new TokenizationServiceImpl(engine);
     }
 
     @Test
@@ -111,4 +113,3 @@ class TokenizationServiceTest {
         verifyNoInteractions(engine);
     }
 }
-

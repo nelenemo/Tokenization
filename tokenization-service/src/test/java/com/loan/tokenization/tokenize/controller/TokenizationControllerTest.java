@@ -1,10 +1,10 @@
-package com.loan.tokenization.controller;
+package com.loan.tokenization.tokenize.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loan.tokenization.dto.TokenizeRequest;
-import com.loan.tokenization.dto.TokenizeResponse;
-import com.loan.tokenization.exception.UnsupportedDataTypeException;
-import com.loan.tokenization.service.TokenizationService;
+import com.loan.tokenization.core.exception.UnsupportedDataTypeException;
+import com.loan.tokenization.tokenize.dto.TokenizeRequest;
+import com.loan.tokenization.tokenize.dto.TokenizeResponse;
+import com.loan.tokenization.tokenize.service.TokenizationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,6 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,7 +38,7 @@ class TokenizationControllerTest {
     private TokenizationService tokenizationService;
 
     @Test
-    void validRequest_returnsToken() throws Exception {
+    void validRequest_returnsTokenInEnvelope() throws Exception {
         when(tokenizationService.tokenize(any(TokenizeRequest.class)))
                 .thenReturn(new TokenizeResponse("4450187392"));
 
@@ -46,7 +47,10 @@ class TokenizationControllerTest {
                         .content(objectMapper.writeValueAsString(
                                 new TokenizeRequest("9841234567", "MOBILE"))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value("4450187392"));
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.message").value("Success"))
+                .andExpect(jsonPath("$.data.token").value("4450187392"))
+                .andExpect(jsonPath("$.error").value(nullValue()));
     }
 
     @Test
@@ -56,7 +60,9 @@ class TokenizationControllerTest {
                         .content("{\"type\": \"MOBILE\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").value("value must not be blank"));
+                .andExpect(jsonPath("$.data").value(nullValue()))
+                .andExpect(jsonPath("$.error.message").value("value must not be blank"))
+                .andExpect(jsonPath("$.error.path").value("/api/tokenize"));
     }
 
     @Test
@@ -66,7 +72,8 @@ class TokenizationControllerTest {
                         .content("{\"value\": null, \"type\": \"MOBILE\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").value("value must not be blank"));
+                .andExpect(jsonPath("$.data").value(nullValue()))
+                .andExpect(jsonPath("$.error.message").value("value must not be blank"));
     }
 
     @ParameterizedTest
@@ -83,7 +90,8 @@ class TokenizationControllerTest {
                         .content("{\"value\": \"" + invalidValue + "\", \"type\": \"MOBILE\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message", containsString("value")));
+                .andExpect(jsonPath("$.data").value(nullValue()))
+                .andExpect(jsonPath("$.error.message", containsString("value")));
     }
 
     @Test
@@ -97,7 +105,8 @@ class TokenizationControllerTest {
                         .content("{\"value\": \"9841234567\", \"type\": \"BANK\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message")
+                .andExpect(jsonPath("$.data").value(nullValue()))
+                .andExpect(jsonPath("$.error.message")
                         .value("Unsupported data type: BANK. Supported types: [MOBILE]"));
     }
 
@@ -108,6 +117,7 @@ class TokenizationControllerTest {
                         .content("{\"value\": \"9841234567\", \"type\": \"MOBILE\""))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").value("Malformed JSON request body"));
+                .andExpect(jsonPath("$.data").value(nullValue()))
+                .andExpect(jsonPath("$.error.message").value("Malformed JSON request body"));
     }
 }

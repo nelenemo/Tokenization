@@ -1,4 +1,4 @@
-package com.loan.tokenization.dto;
+package com.loan.tokenization.tokenize.dto;
 
 /**
  * Response payload for {@code POST /api/tokenize}.
@@ -7,4 +7,3 @@ package com.loan.tokenization.dto;
  */
 public record TokenizeResponse(String token) {
 }
-

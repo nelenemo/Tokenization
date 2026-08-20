@@ -1,12 +1,14 @@
-package com.loan.tokenization.dto;
+package com.loan.tokenization.core.constant;
 
 import java.util.Arrays;
 
 /**
  * Data types supported by the tokenization service.
  *
- * <p>Phase 1 supports only {@code MOBILE}; additional types will be added in
- * later phases.</p>
+ * <p>Phase 1/2 supports only {@code MOBILE}; additional types will be added in
+ * later phases. Placed in {@code core.constant} (architecture_pattern.md #13 —
+ * no magic strings) because it is part of the {@code TokenizationEngine}
+ * contract shared by every feature.</p>
  */
 public enum DataType {
 

@@ -37,6 +37,17 @@
             <artifactId>bcprov-jdk18on</artifactId>
             <version>1.85.2</version>
         </dependency>
+        <!-- Observability baseline (architecture_pattern.md #1/#34): actuator + health -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- API documentation baseline (architecture_pattern.md #1/#35): springdoc OpenAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.17</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -1,4 +1,4 @@
-package com.loan.tokenization.config;
+package com.loan.tokenization.core.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Configuration for the tokenization service.
  *
  * <p>Values are bound from the {@code app.tokenization} prefix in
- * {@code application.yml} using relaxed binding.</p>
+ * {@code application.yml} using relaxed binding
+ * (architecture_pattern.md #23 — externalized, typed configuration).</p>
  */
 @ConfigurationProperties(prefix = "app.tokenization")
 public class TokenizationProperties {
@@ -29,15 +30,18 @@ public class TokenizationProperties {
         /**
          * TEMPORARY development-only AES key (Base64-encoded).
          *
-         * <p>This key is supplied through configuration for local development
-         * only and must be moved to HashiCorp Vault (Vault Transit) in a later
-         * phase. It must decode to 16, 24 or 32 bytes (AES-128/192/256).</p>
+         * <p>Supplied through configuration for local development only and
+         * overridable via the {@code TOKENIZATION_FF1_KEY_BASE64} environment
+         * variable (architecture_pattern.md #24 — secrets never in source).
+         * Will be moved to HashiCorp Vault (Vault Transit) in a later phase.
+         * Must decode to 16, 24 or 32 bytes (AES-128/192/256).</p>
          */
         private String keyBase64;
 
         /**
          * TEMPORARY development-only FF1 tweak (hex-encoded). Optional; an
-         * empty tweak is allowed.
+         * empty tweak is allowed. Overridable via the
+         * {@code TOKENIZATION_FF1_TWEAK_HEX} environment variable.
          */
         private String tweakHex = "";
 
@@ -58,4 +62,3 @@ public class TokenizationProperties {
         }
     }
 }
-

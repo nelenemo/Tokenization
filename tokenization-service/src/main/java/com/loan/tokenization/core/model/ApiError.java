@@ -1,9 +1,12 @@
-package com.loan.tokenization.dto;
+package com.loan.tokenization.core.model;
 
 import java.time.Instant;
 
 /**
- * Consistent error response body used by the global exception handler.
+ * Error details embedded in the unified {@link ApiResponse} envelope.
+ *
+ * <p>Matches architecture_pattern.md #27 (centralized error handling, no stack
+ * traces) and #28 (consistent response structure).</p>
  *
  * @param timestamp when the error occurred
  * @param status    HTTP status code

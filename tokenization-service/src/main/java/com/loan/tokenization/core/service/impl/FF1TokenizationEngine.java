@@ -1,9 +1,10 @@
-package com.loan.tokenization.service;
+package com.loan.tokenization.core.service.impl;
 
-import com.loan.tokenization.config.TokenizationProperties;
-import com.loan.tokenization.dto.DataType;
-import com.loan.tokenization.exception.DataValidationException;
-import com.loan.tokenization.exception.UnsupportedDataTypeException;
+import com.loan.tokenization.core.config.TokenizationProperties;
+import com.loan.tokenization.core.constant.DataType;
+import com.loan.tokenization.core.exception.DataValidationException;
+import com.loan.tokenization.core.exception.UnsupportedDataTypeException;
+import com.loan.tokenization.core.service.TokenizationEngine;
 import org.bouncycastle.crypto.fpe.FPEFF1Engine;
 import org.bouncycastle.crypto.params.FPEParameters;
 import org.bouncycastle.crypto.params.KeyParameter;

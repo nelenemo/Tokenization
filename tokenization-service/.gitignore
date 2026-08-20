@@ -16,3 +16,4 @@ logs/
 #ssh
 **/setup-ssh.ps1
 **/setup-ssh.sh
+**/SSH-GITHUB-GUIDE.md
